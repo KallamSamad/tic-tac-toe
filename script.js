@@ -1,50 +1,59 @@
 let gameBoardObject = {
-    gameBoard:
-    ["", "", "",
-    "",  "", "",
-    "",  "", ""
+    gameBoard: ["", "", "", "", "", "", "", "", ""],
+    winningCombo: [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+    ]
+}
 
-    ]}
-let playerObject=
-{
-    player1Score:0,
-    player2Score: 0,
+let playerObject = {
     player1Marker: "X",
     player2Marker: "O"
-
 }
 
-let gameFlow={
+let gameFlow = {
     player1Turn: true,
-    player2Turn: false,
     gameOver: false,
-    winner: "winner"
-
-
+    winner: ""
 }
 
-let position=0
+function game() {
+    while (!gameFlow.gameOver) {
+        let player = gameFlow.player1Turn ? "Player 1" : "Player 2"
+        let marker = gameFlow.player1Turn ? playerObject.player1Marker : playerObject.player2Marker
+        let position = Number(prompt(`${player}: add number 0-8`))
 
+        if (gameBoardObject.gameBoard[position] === "X" || gameBoardObject.gameBoard[position] === "O") {
+            console.log("Invalid input")
+            continue
+        }
 
+        gameBoardObject.gameBoard[position] = marker
+        console.log(gameBoardObject.gameBoard)
 
-function game(position){
+        for (let combo of gameBoardObject.winningCombo) {
+            let [a, b, c] = [gameBoardObject.gameBoard[combo[0]], gameBoardObject.gameBoard[combo[1]], gameBoardObject.gameBoard[combo[2]]]
+            if (a === "X" && b === "X" && c === "X") {
+                gameFlow.gameOver = true
+                gameFlow.winner = "Player 1 wins"
+                break
+            } else if (a === "O" && b === "O" && c === "O") {
+                gameFlow.gameOver = true
+                gameFlow.winner = "Player 2 wins"
+                break
+            }
+        }
 
-    while (gameFlow.player1Turn===true){
-         position=Number(prompt("add number"))    
-         if (gameBoardObject.gameBoard[position]=="X"|| gameBoardObject.gameBoard[position]=="O"){
-                    console.log("Invalid input")
-              }
-         else{
-              gameBoardObject.gameBoard[position]=playerObject.player1Marker
-              console.log(gameBoardObject.gameBoard)
-              gameFlow.player2Turn = true
-              gameFlow.player1Turn =false
+        if (!gameFlow.gameOver && !gameBoardObject.gameBoard.includes("")) {
+            gameFlow.gameOver = true
+            gameFlow.winner = "Draw"
+        }
+
+        gameFlow.player1Turn = !gameFlow.player1Turn
     }
-    
-  
-}}
 
-game(position)
+    console.log(gameFlow.winner)
+}
 
-
-
+game()
