@@ -15,21 +15,34 @@ let playerObject=
 }
 
 let gameFlow={
-    turn: "player1",
-    gameOver: "False",
+    player1Turn: true,
+    player2Turn: false,
+    gameOver: false,
     winner: "winner"
 
 
 }
 
 let position=0
+
+
+
 function game(position){
-    position=prompt("Choose a place 1-9")
-    gameBoardObject.gameBoard[position]=playerObject.player1Marker
-    console.log(gameBoardObject.gameBoard)
 
-
-}
+    while (gameFlow.player1Turn===true){
+         position=Number(prompt("add number"))    
+         if (gameBoardObject.gameBoard[position]=="X"|| gameBoardObject.gameBoard[position]=="O"){
+                    console.log("Invalid input")
+              }
+         else{
+              gameBoardObject.gameBoard[position]=playerObject.player1Marker
+              console.log(gameBoardObject.gameBoard)
+              gameFlow.player2Turn = true
+              gameFlow.player1Turn =false
+    }
+    
+  
+}}
 
 game(position)
 
