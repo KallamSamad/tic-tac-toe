@@ -57,3 +57,18 @@ function game() {
 }
 
 game()
+
+
+const container=document.createElement("div")
+container.style.backgroundColor="red"
+container.classList.add("container")
+document.body.appendChild(container)
+
+for (let i=0;i<9;i++){
+    const board = document.createElement("div")
+    board.style.backgroundColor="blue"
+    board.classList.add("board")
+    board.textContent=gameBoardObject.gameBoard[i]
+    container.appendChild(board)
+    
+}
