@@ -18,57 +18,62 @@ let gameFlow = {
     winner: ""
 }
 
-function game() {
-    while (!gameFlow.gameOver) {
-        let player = gameFlow.player1Turn ? "Player 1" : "Player 2"
+
+const container = document.createElement("div")
+container.classList.add("container")
+document.body.appendChild(container)
+
+
+for (let i = 0; i < 9; i++) {
+    const board = document.createElement("div")
+    board.classList.add("board")
+    board.style.width = "50px"
+    board.style.height = "50px"
+    board.style.display = "inline-block"
+    board.style.border = "1px solid black"
+    board.style.textAlign = "center"
+    board.style.lineHeight = "50px"
+    container.appendChild(board)
+}
+
+
+const squares = document.querySelectorAll(".board")
+const winner=document.createElement("div")
+container.appendChild(winner)
+
+squares.forEach((cell, i) => {
+    cell.addEventListener("click", () => {
+        if (gameFlow.gameOver) return 
+        if (gameBoardObject.gameBoard[i] !== "") return // 
+
         let marker = gameFlow.player1Turn ? playerObject.player1Marker : playerObject.player2Marker
-        let position = Number(prompt(`${player}: add number 0-8`))
+        gameBoardObject.gameBoard[i] = marker
+        cell.textContent = marker
 
-        if (gameBoardObject.gameBoard[position] === "X" || gameBoardObject.gameBoard[position] === "O") {
-            console.log("Invalid input")
-            continue
-        }
-
-        gameBoardObject.gameBoard[position] = marker
-        console.log(gameBoardObject.gameBoard)
 
         for (let combo of gameBoardObject.winningCombo) {
             let [a, b, c] = [gameBoardObject.gameBoard[combo[0]], gameBoardObject.gameBoard[combo[1]], gameBoardObject.gameBoard[combo[2]]]
             if (a === "X" && b === "X" && c === "X") {
                 gameFlow.gameOver = true
                 gameFlow.winner = "Player 1 wins"
-                break
+                winner.innerHTML=gameFlow.winner            
+
             } else if (a === "O" && b === "O" && c === "O") {
                 gameFlow.gameOver = true
                 gameFlow.winner = "Player 2 wins"
-                break
-            }
+                winner.innerHTML=gameFlow.winner            
+          }
         }
 
         if (!gameFlow.gameOver && !gameBoardObject.gameBoard.includes("")) {
             gameFlow.gameOver = true
             gameFlow.winner = "Draw"
+            winner.innerHTML=gameFlow.winner            
+
         }
 
         gameFlow.player1Turn = !gameFlow.player1Turn
-    }
 
-    console.log(gameFlow.winner)
-}
-
-game()
-
-
-const container=document.createElement("div")
-container.style.backgroundColor="red"
-container.classList.add("container")
-document.body.appendChild(container)
-
-for (let i=0;i<9;i++){
-    const board = document.createElement("div")
-    board.style.backgroundColor="blue"
-    board.classList.add("board")
-    board.textContent=gameBoardObject.gameBoard[i]
-    container.appendChild(board)
-    
-}
+        if (gameFlow.gameOver) console.log(gameFlow.winner)
+    })
+})
