@@ -30,7 +30,7 @@ for (let i = 0; i < 9; i++) {
     board.style.width = "50px"
     board.style.height = "50px"
     board.style.display = "inline-block"
-    board.style.border = "1px solid black"
+    board.style.border = "1px solid blue"
     board.style.textAlign = "center"
     board.style.lineHeight = "50px"
     container.appendChild(board)
