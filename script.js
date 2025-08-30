@@ -74,31 +74,6 @@ squares.forEach((cell, i) => {
 
         gameFlow.player1Turn = !gameFlow.player1Turn
 
-<<<<<<< HEAD
         if (gameFlow.gameOver) console.log(gameFlow.winner)
     })
 })
-=======
-    console.log(gameFlow.winner)
-}
-
-game()
-<<<<<<< HEAD
-=======
-
-
-const container=document.createElement("div")
-container.style.backgroundColor="red"
-container.classList.add("container")
-document.body.appendChild(container)
-
-for (let i=0;i<9;i++){
-    const board = document.createElement("div")
-    board.style.backgroundColor="blue"
-    board.classList.add("board")
-    board.textContent=gameBoardObject.gameBoard[i]
-    container.appendChild(board)
-    
-}
->>>>>>> 5459920 (added DOM manipualtion)
->>>>>>> main
